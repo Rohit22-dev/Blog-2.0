@@ -1,54 +1,78 @@
-import NextLink from "next/link";
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+"use client";
+import React, { useState, useEffect } from "react";
+import { Suspense } from "react";
+import { AllBlog } from "@/components/Data";
+import AdvertCard from "@/components/AdvertCard";
+import Users from "@/components/Users";
+import BlogCard from "@/components/blogCard";
+import Profile from "@/components/profile";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { FadeLoader } from "react-spinners";
+
+type BlogItem = {
+  _id: string;
+  _v: number;
+  userId: string;
+  userName: string;
+  title: string;
+  image: { url: string; fileId: string };
+  description: string;
+  comments: { userName: string; comment: string }[];
+};
 
 export default function Home() {
-	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
+  const [blogData, setBlogData] = useState<BlogItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					as={NextLink}
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					as={NextLink}
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
+  useEffect(() => {
+    async function fetchBlogData() {
+      try {
+        setIsLoading(true);
+        const res = await axios.get("https://blog-zlon.onrender.com/blog");
+        setBlogData(res.data);
+        setIsLoading(false);
+      } catch (error: any) {
+        console.log(error);
+        toast.error(error?.message);
+      }
+    }
+    fetchBlogData();
+  }, []);
 
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="flat">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
-		</section>
-	);
+  return (
+    <div className="flex flex-col-reverse lg:flex-row justify-around gap-8 relative">
+      <Profile />
+      <div className="flex flex-col w-full lg:w-1/2 gap-10 pb-10">
+        {/* <Suspense fallback={<Loading />}>
+          <AllBlog />
+        </Suspense> */}
+        {isLoading ? (
+          <div className="flex w-full justify-center">
+            <FadeLoader loading={isLoading} color="#0070f0" />
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {blogData.map((item) => (
+              <BlogCard key={item._id} data={item} />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="hidden lg:flex flex-col w-full lg:w-[30%] gap-5 h-fit lg:sticky top-[130px]">
+        <AdvertCard />
+        <Users />
+      </div>
+    </div>
+  );
 }
+
+// function Loading() {
+//   return (
+//     <div className="flex flex-col gap-4">
+//       {Array.from({ length: 4 }).map((_, index) => (
+//         <BlogCard key={index} />
+//       ))}
+//     </div>
+//   );
+// }
