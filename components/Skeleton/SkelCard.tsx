@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, Skeleton } from "@nextui-org/react";
 
-export default function BlogCard() {
+export default function SkelCard() {
   return (
     <Card className="w-full space-y-5 p-3" radius="lg">
       <Skeleton className="rounded-lg">

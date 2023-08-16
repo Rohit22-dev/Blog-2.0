@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Suspense } from "react";
-import { AllBlog } from "@/components/Data";
+// import { Suspense } from "react";
+// import { AllBlog } from "@/components/Data";
 import AdvertCard from "@/components/AdvertCard";
 import Users from "@/components/Users";
 import BlogCard from "@/components/BlogCard";
