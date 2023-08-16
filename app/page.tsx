@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 // import { AllBlog } from "@/components/Data";
 import AdvertCard from "@/components/AdvertCard";
 import Users from "@/components/Users";
-import BlogCard from "@/components/BlogCard";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FadeLoader } from "react-spinners";
@@ -12,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, setAllBlog } from "@/store/slice";
 import { useRouter } from "next/navigation";
 import UserCard from "@/components/UserCard";
+import BlogDataCard from "@/components/BlogDataCard";
 
 type BlogItem = {
   _id: string;
@@ -73,7 +73,7 @@ export default function Home() {
               .slice()
               ?.reverse()
               ?.map((item) => (
-                <BlogCard key={item._id} data={item} />
+                <BlogDataCard key={item._id} data={item} />
               ))}
           </div>
         )}

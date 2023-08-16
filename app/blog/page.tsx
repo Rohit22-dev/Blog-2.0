@@ -23,10 +23,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { FadeLoader } from "react-spinners";
 import axios from "axios";
 import { toast } from "react-toastify";
-import BlogCard from "@/components/BlogCard";
 import { isLoggedIn, setUserBlog } from "@/store/slice";
 import { useRouter } from "next/navigation";
 import imagekit from "@/utils/imagekit";
+import BlogDataCard from "@/components/BlogDataCard";
 
 type BlogItem = {
   _id: string;
@@ -313,7 +313,7 @@ export default function BlogPage() {
               .slice()
               ?.reverse()
               ?.map((item) => (
-                <BlogCard
+                <BlogDataCard
                   key={item._id}
                   data={item}
                   isEditable

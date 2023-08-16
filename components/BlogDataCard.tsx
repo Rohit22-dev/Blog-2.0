@@ -44,7 +44,7 @@ type BlogCardProps = {
   fetchBlogs?: any;
 };
 
-const BlogCard: React.FC<BlogCardProps> = ({
+const BlogDataCard: React.FC<BlogCardProps> = ({
   data,
   isEditable = false,
   setData,
@@ -240,4 +240,4 @@ const BlogCard: React.FC<BlogCardProps> = ({
   );
 };
 
-export default BlogCard;
+export default BlogDataCard;
