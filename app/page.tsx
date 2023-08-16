@@ -34,11 +34,10 @@ export default function Home() {
     (state: any) => state.counter.allBlog
   );
 
-  if (!isLogin) {
-    router.push("/login");
-  }
-
   useEffect(() => {
+    if (!isLogin) {
+      router.push("/login");
+    }
     async function fetchBlogData() {
       try {
         setIsLoading(true);

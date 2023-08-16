@@ -49,10 +49,6 @@ export default function BlogPage() {
   const isLogin = useSelector(isLoggedIn);
   const router = useRouter();
 
-  if (!isLogin) {
-    router.push("/login");
-  }
-
   const initialData = {
     title: "",
     description: "",
@@ -199,6 +195,9 @@ export default function BlogPage() {
   }
 
   useEffect(() => {
+    if (!isLogin) {
+      router.push("/login");
+    }
     if (userBlog.length === 0) {
       fetchBlogs();
     }
