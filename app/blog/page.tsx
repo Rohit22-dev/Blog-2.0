@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FadeLoader } from "react-spinners";
 import axios from "axios";
 import { toast } from "react-toastify";
-import BlogCard from "@/components/blogCard";
+import BlogCard from "@/components/BlogCard";
 import { isLoggedIn, setUserBlog } from "@/store/slice";
 import { useRouter } from "next/navigation";
 import imagekit from "@/utils/imagekit";

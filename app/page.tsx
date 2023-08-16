@@ -4,14 +4,14 @@ import { Suspense } from "react";
 import { AllBlog } from "@/components/Data";
 import AdvertCard from "@/components/AdvertCard";
 import Users from "@/components/Users";
-import BlogCard from "@/components/blogCard";
+import BlogCard from "@/components/BlogCard";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FadeLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, setAllBlog } from "@/store/slice";
 import { useRouter } from "next/navigation";
-import Profile from "@/components/Profile";
+import UserCard from "@/components/UserCard";
 
 type BlogItem = {
   _id: string;
@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse lg:flex-row justify-around gap-8 relative">
-      <Profile />
+      <UserCard />
       <div className="flex flex-col w-full lg:w-1/2 gap-10 pb-10">
         {/* <Suspense fallback={<Loading />}>
           <AllBlog />
