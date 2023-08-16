@@ -1,12 +1,14 @@
 "use client";
 import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
 import { subtitle, title } from "@/components/primitives";
+import { setLogin } from "@/store/slice";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Divider, Tabs, Tab } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, useMemo, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const Page = () => {
@@ -17,6 +19,7 @@ const Page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -55,6 +58,7 @@ const Page = () => {
             { email, password }
           );
           toast.success("Login successful", { autoClose: 2000 });
+          dispatch(setLogin({ user: data?.user }));
           setLoading(false);
           router.push("/");
         } catch (error: any) {
@@ -64,7 +68,7 @@ const Page = () => {
         }
       }
     },
-    [email, password, name, selected, router]
+    [email, password, name, selected, router, dispatch]
   );
 
   return (
@@ -88,12 +92,12 @@ const Page = () => {
             {selected === "Login" ? "Welcome back" : "Create new account"}&nbsp;
           </h1>
           <h2 className={subtitle({ class: "mt-4" })}>
-            Beautiful, fast and modern React UI library.
+            Write and share your views.
           </h2>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex justify-center flex-col items-center md:w-1/2 gap-2 md:gap-6 p-10"
+          className="flex justify-center flex-col items-center md:w-1/2 gap-2 md:gap-6 p-8"
         >
           <h1 className={title({ class: "mb-6 md:mb-10" })}>
             {selected}&nbsp;
@@ -115,7 +119,7 @@ const Page = () => {
             size="sm"
             variant="bordered"
             value={email}
-            description="We'll never share your email with anyone else."
+            description="We'll not share your email with others"
             color={
               validationState === "invalid" || error ? "danger" : "primary"
             }
@@ -126,7 +130,7 @@ const Page = () => {
             }
             onValueChange={(value) => setEmail(value)}
             validationState={validationState}
-            className="max-w-sm"
+            className="w-full"
           />
 
           <Input

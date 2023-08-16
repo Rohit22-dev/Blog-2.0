@@ -42,4 +42,5 @@ Licensed under the [MIT license](https://github.com/nextui-org/next-app-template
 
 1- Add time of comment and show avatar
 2- Create comment threads
-2- Create more login methods
+3- Create more login methods
+4- Remove sending extra id to backend in Blogcard handleCommnet function.

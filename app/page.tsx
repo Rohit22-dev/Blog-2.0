@@ -5,10 +5,13 @@ import { AllBlog } from "@/components/Data";
 import AdvertCard from "@/components/AdvertCard";
 import Users from "@/components/Users";
 import BlogCard from "@/components/blogCard";
-import Profile from "@/components/profile";
+import Profile from "@/components/Profile";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FadeLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+import { isLoggedIn, setAllBlog } from "@/store/slice";
+import { useRouter } from "next/navigation";
 
 type BlogItem = {
   _id: string;
@@ -22,22 +25,35 @@ type BlogItem = {
 };
 
 export default function Home() {
-  const [blogData, setBlogData] = useState<BlogItem[]>([]);
+  // const [blogData, setBlogData] = useState<BlogItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const isLogin = useSelector(isLoggedIn);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const allBlog: BlogItem[] = useSelector(
+    (state: any) => state.counter.allBlog
+  );
+
+  if (!isLogin) {
+    router.push("/login");
+  }
 
   useEffect(() => {
     async function fetchBlogData() {
       try {
         setIsLoading(true);
         const res = await axios.get("https://blog-zlon.onrender.com/blog");
-        setBlogData(res.data);
+        // setBlogData(res.data);
+        dispatch(setAllBlog(res.data));
         setIsLoading(false);
       } catch (error: any) {
         console.log(error);
         toast.error(error?.message);
       }
     }
-    fetchBlogData();
+    if (allBlog.length === 0) {
+      fetchBlogData();
+    }
   }, []);
 
   return (
@@ -53,9 +69,12 @@ export default function Home() {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            {blogData.map((item) => (
-              <BlogCard key={item._id} data={item} />
-            ))}
+            {allBlog
+              .slice()
+              ?.reverse()
+              ?.map((item) => (
+                <BlogCard key={item._id} data={item} />
+              ))}
           </div>
         )}
       </div>
