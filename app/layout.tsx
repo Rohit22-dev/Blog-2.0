@@ -13,7 +13,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "@/store/store";
-import Navbar from "../components/Navbar";
+import NavHeader from "@/components/NavHeader";
 
 // const persistConfig = { key: "root", storage, version: 1 };
 // const persistedReducer = persistReducer(persistConfig, authReducer);
@@ -42,7 +42,7 @@ export default function RootLayout({
           <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
             <ToastContainer theme="dark" />
             <div className="relative flex flex-col h-screen">
-              <Navbar />
+              <NavHeader />
               <main className="container mx-auto max-w-8xl pt-16 px-6 flex-grow">
                 {children}
               </main>

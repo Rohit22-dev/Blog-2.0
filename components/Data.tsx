@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import BlogCard from "./blogCard";
+import BlogCard from "./BlogCard";
 
 type BlogItem = {
   _id: string;

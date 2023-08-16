@@ -35,7 +35,7 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, setLogout } from "@/store/slice";
 
-const Navbar = () => {
+const NavHeader = () => {
   const pathName = usePathname();
   const user = useSelector((state: any) => state.counter.user);
   const dispatch = useDispatch();
@@ -200,4 +200,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavHeader;
