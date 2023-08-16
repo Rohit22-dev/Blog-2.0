@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 
-export default function Profile() {
+const Profile = () => {
   const user = useSelector((state: any) => state.counter.user);
 
   return (
@@ -58,4 +58,6 @@ export default function Profile() {
       </CardFooter> */}
     </Card>
   );
-}
+};
+
+export default Profile;

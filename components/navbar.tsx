@@ -35,7 +35,7 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, setLogout } from "@/store/slice";
 
-export const Navbar = () => {
+const Navbar = () => {
   const pathName = usePathname();
   const user = useSelector((state: any) => state.counter.user);
   const dispatch = useDispatch();
@@ -199,3 +199,5 @@ export const Navbar = () => {
     </NextUINavbar>
   );
 };
+
+export default Navbar;

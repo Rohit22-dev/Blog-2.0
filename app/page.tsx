@@ -5,13 +5,13 @@ import { AllBlog } from "@/components/Data";
 import AdvertCard from "@/components/AdvertCard";
 import Users from "@/components/Users";
 import BlogCard from "@/components/blogCard";
-import Profile from "@/components/Profile";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FadeLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, setAllBlog } from "@/store/slice";
 import { useRouter } from "next/navigation";
+import Profile from "@/components/Profile";
 
 type BlogItem = {
   _id: string;
