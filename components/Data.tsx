@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import BlogCard from "./BlogCard";
+import BlogDataCard from "./BlogDataCard";
 
 type BlogItem = {
   _id: string;
@@ -34,7 +34,7 @@ export const AllBlog = () => {
   return (
     <div className="flex flex-col gap-4">
       {blogData.map((item: BlogItem) => (
-        <BlogCard key={item._id} data={item} />
+        <BlogDataCard key={item._id} data={item} />
       ))}
     </div>
   );
