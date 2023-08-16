@@ -13,7 +13,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "@/store/store";
-import Navbar from "@/components/Navbar";
+import Navbar from "../components/Navbar";
 
 // const persistConfig = { key: "root", storage, version: 1 };
 // const persistedReducer = persistReducer(persistConfig, authReducer);
