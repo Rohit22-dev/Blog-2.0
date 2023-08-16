@@ -1,10 +1,8 @@
 "use client";
 import "@/styles/globals.css";
-import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/Navbar";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,23 +21,6 @@ import store from "@/store/store";
 //   reducer: persistedReducer,
 // });
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -50,6 +31,8 @@ export default function RootLayout({
       {/* <PersistGate loading={null} persistor={persistStore(store)}> */}
       <html lang="en" suppressHydrationWarning>
         <head />
+        <title>Story Sage</title>
+        <meta name="description" content="Your meta description here" />
         <body
           className={clsx(
             "min-h-screen bg-background font-sans antialiased",

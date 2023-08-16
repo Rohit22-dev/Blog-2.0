@@ -44,3 +44,5 @@ Licensed under the [MIT license](https://github.com/nextui-org/next-app-template
 2- Create comment threads
 3- Create more login methods
 4- Remove sending extra id to backend in Blogcard handleCommnet function.
+5- Createsetting page where about and image can be updated.
+6- Add persist redux store
