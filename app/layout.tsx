@@ -9,16 +9,33 @@ import { ToastContainer } from "react-toastify";
 import authReducer from "@/states";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "@/store/store";
 import NavHeader from "@/components/NavHeader";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PURGE,
+  REGISTER,
+  PERSIST,
+} from "redux-persist";
 
 // const persistConfig = { key: "root", storage, version: 1 };
 // const persistedReducer = persistReducer(persistConfig, authReducer);
 // const store = configureStore({
-//   reducer: persistedReducer,
+//   reducer: {
+//     counter: persistedReducer,
+//   },
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
 // });
 
 export default function RootLayout({
@@ -35,13 +52,13 @@ export default function RootLayout({
         <meta name="description" content="Your meta description here" />
         <body
           className={clsx(
-            "min-h-screen bg-background font-sans antialiased",
+            "min-h-screen bg-background font-sans antialiased ",
             fontSans.variable
           )}
         >
           <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
             <ToastContainer theme="dark" />
-            <div className="relative flex flex-col h-screen">
+            <div className="relative flex flex-col h-screen bg-foreground-100 dark:bg-background">
               <NavHeader />
               <main className="container mx-auto max-w-8xl pt-16 px-6 flex-grow">
                 {children}

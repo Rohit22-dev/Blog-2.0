@@ -28,9 +28,9 @@ import {
   GithubIcon,
   DiscordIcon,
   SearchIcon,
-} from "@/components/icons";
+} from "@/components/Icons";
 
-import { Logo1 } from "@/components/icons";
+import { Logo1 } from "@/components/Icons";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, setLogout } from "@/store/slice";
@@ -107,7 +107,7 @@ const NavHeader = () => {
       {isLogin && (
         <>
           <NavbarContent
-            className="hidden sm:flex basis-1/5 sm:basis-full"
+            className="hidden md:flex basis-1/5 sm:basis-full"
             justify="end"
           >
             <NavbarItem className="hidden md:flex gap-2">
@@ -153,7 +153,7 @@ const NavHeader = () => {
                 </DropdownItem>
                 <DropdownItem
                   color="danger"
-                  onClick={handleLogout}
+                  // onClick={handleLogout}
                   textValue="Log Out"
                 >
                   <Link color="danger" href="/login">
@@ -178,7 +178,7 @@ const NavHeader = () => {
               {siteConfig.navMenuItems.map((item, index) => (
                 <NavbarMenuItem key={`${item}-${index}`}>
                   {index === siteConfig.navMenuItems.length - 1 ? (
-                    <Link color="primary" size="lg" onClick={handleLogout}>
+                    <Link color="danger" size="lg" onClick={handleLogout}>
                       {item.label}
                     </Link>
                   ) : (

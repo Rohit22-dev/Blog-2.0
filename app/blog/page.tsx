@@ -18,7 +18,7 @@ import {
   useDisclosure,
   Image,
 } from "@nextui-org/react";
-import { ImageAdd } from "@/components/icons";
+import { ImageAdd } from "@/components/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { FadeLoader } from "react-spinners";
 import axios from "axios";
@@ -49,14 +49,16 @@ export default function BlogPage() {
   const isLogin = useSelector(isLoggedIn);
   const router = useRouter();
 
-  const initialData = {
-    title: "",
-    description: "",
-    currentImage: {
-      url: "",
-      fileId: "",
-    },
-  };
+  const initialData = useMemo(() => {
+    return {
+      title: "",
+      description: "",
+      currentImage: {
+        url: "",
+        fileId: "",
+      },
+    };
+  }, []);
   const [data, setData] = useState(initialData);
   const [image, setImage] = useState(null);
   const [word, setWord] = useState(0);
@@ -90,6 +92,20 @@ export default function BlogPage() {
     setWord(words.length);
     return words.length <= 1000 ? "valid" : "invalid";
   }, [data.description]);
+
+  const fetchBlogs = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(
+        `https://blog-zlon.onrender.com/blog/${user._id}/blogs`
+      );
+      // setUserBlogs(res.data);
+      dispatch(setUserBlog(res.data));
+      setLoading(false);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [dispatch, user]);
 
   const handleClick = useCallback(async () => {
     setIsPosting(true);
@@ -151,6 +167,8 @@ export default function BlogPage() {
     editBlogId,
     image,
     user?._id,
+    initialData,
+    fetchBlogs,
   ]);
 
   function Modaal() {
@@ -197,25 +215,10 @@ export default function BlogPage() {
   useEffect(() => {
     if (!isLogin) {
       router.push("/login");
-    }
-    if (userBlog.length === 0) {
+    } else if (userBlog.length === 0) {
       fetchBlogs();
     }
-  }, []);
-
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(
-        `https://blog-zlon.onrender.com/blog/${user._id}/blogs`
-      );
-      // setUserBlogs(res.data);
-      dispatch(setUserBlog(res.data));
-      setLoading(false);
-    } catch (error: any) {
-      toast.error(error.message);
-    }
-  };
+  }, [isLogin, router, userBlog.length, fetchBlogs]);
 
   const handleDeleteUserBlog = (blogId: any) => {
     const updatedUserBlogs = userBlog.filter((blog) => blog._id !== blogId);
@@ -226,7 +229,7 @@ export default function BlogPage() {
   return (
     <div className="flex flex-col px-4 md:px-20 w-full lg:flex-row gap-6 relative">
       <Modaal />
-      <Card className="w-1/2 h-fit sticky top-44">
+      <Card className="w-full lg:w-1/2 h-fit lg:sticky lg:top-44">
         <CardHeader></CardHeader>
         <CardBody className="space-y-3">
           <div className="h-fit w-full">
@@ -297,7 +300,7 @@ export default function BlogPage() {
           />
         )}
       </Card>
-      <div className="lg:w-1/2 lg:overflow-y-scroll h-[71vh] rounded-lg">
+      <div className="lg:w-1/2 lg:overflow-y-scroll lg:h-[71vh] rounded-lg">
         <div className="w-full flex flex-col gap-10 pr-2 ">
           {isLoading ? (
             <div className="flex justify-center w-full">

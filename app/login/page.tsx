@@ -1,5 +1,5 @@
 "use client";
-import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
+import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/Icons";
 import { subtitle, title } from "@/components/primitives";
 import { setLogin } from "@/store/slice";
 import { Button } from "@nextui-org/button";
@@ -83,12 +83,12 @@ const Page = () => {
         <Tab key="Login" title="Login" />
       </Tabs>
       <div
-        className={`${
-          selected === "Sign Up" && "flex-row-reverse"
-        } flex md:flex-row flex-col h-fit bg-foreground-100 rounded-md`}
+        className={`flex md:flex-row flex-col w-full lg:w-2/3 h-fit bg-foreground-100 rounded-md ${
+          selected === "Sign Up" && "md:flex-row-reverse"
+        } `}
       >
         <div className="flex flex-col md:w-1/2 bg-gradient-to-tr from-pink-500 to-yellow-500 rounded-md justify-center items-center text-center p-10">
-          <h1 className={title({ class: "mb-10" })}>
+          <h1 className={title({ class: "mb-10 w-60" })}>
             {selected === "Login" ? "Welcome back" : "Create new account"}&nbsp;
           </h1>
           <h2 className={subtitle({ class: "mt-4" })}>
@@ -97,7 +97,7 @@ const Page = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex justify-center flex-col items-center md:w-1/2 gap-2 md:gap-6 p-8"
+          className="flex justify-center flex-col items-center md:w-1/2 gap-2 md:gap-6 p-8 light:bg-white"
         >
           <h1 className={title({ class: "mb-6 md:mb-10" })}>
             {selected}&nbsp;
@@ -130,7 +130,7 @@ const Page = () => {
             }
             onValueChange={(value) => setEmail(value)}
             validationState={validationState}
-            className="w-full"
+            className="max-w-sm"
           />
 
           <Input

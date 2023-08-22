@@ -35,9 +35,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (!isLogin) {
-      router.push("/login");
-    }
     async function fetchBlogData() {
       try {
         setIsLoading(true);
@@ -50,10 +47,12 @@ export default function Home() {
         toast.error(error?.message);
       }
     }
-    if (allBlog.length === 0) {
+    if (!isLogin) {
+      router.push("/login");
+    } else if (allBlog.length === 0) {
       fetchBlogData();
     }
-  }, []);
+  }, [allBlog.length, dispatch, isLogin, router]);
 
   return (
     <div className="flex flex-col-reverse lg:flex-row justify-around gap-8 relative">

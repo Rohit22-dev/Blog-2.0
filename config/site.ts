@@ -48,7 +48,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/Rohit22-dev/Blog/tree/blog2.0",
+    github: "https://github.com/Rohit22-dev/Blog-2.0",
     twitter: "https://twitter.com/getnextui",
     docs: "https://nextui.org",
     discord: "https://discord.gg/9b6yyZKmH4",

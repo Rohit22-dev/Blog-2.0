@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import {
   IconEdit,
   IconTrash,
   SendIcon,
-} from "./icons";
+} from "./Icons";
 import { Input } from "@nextui-org/input";
 import axios from "axios";
 import imagekit from "@/utils/imagekit";
@@ -82,13 +82,7 @@ const BlogDataCard: React.FC<BlogCardProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (showComment) {
-      fetchComments();
-    }
-  }, [showComment]);
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get(
@@ -99,7 +93,13 @@ const BlogDataCard: React.FC<BlogCardProps> = ({
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [data._id]);
+
+  useEffect(() => {
+    if (showComment) {
+      fetchComments();
+    }
+  }, [showComment, fetchComments]);
 
   const toggleComment = () => {
     setShowComment(!showComment);
