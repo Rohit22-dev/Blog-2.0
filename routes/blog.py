@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from config.database import blog_collection,user_collection
 from models.model import CreateBlogRequest, UpdateBlogRequest, UpdateCommentRequest
-import logging
+from logger import logger
 from schema.schemas import list_serial,individual_serial
 from bson import ObjectId
 
@@ -10,7 +10,7 @@ blog = APIRouter(prefix='/blog')
 
 # Common error handling method
 def handle_error(e: Exception):
-    logging.info(str(e))
+    logger.error(str(e))
     return {"error": str(e)}
 
 

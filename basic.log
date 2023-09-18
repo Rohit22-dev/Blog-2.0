@@ -1,1 +1,5 @@
-2023-09-14 12:49:47 INFO object UpdateResult can't be used in 'await' expression
+2023-09-18 15:28:29 INFO Initialising mongo database connection
+2023-09-18 15:28:29 DEBUG loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2023-09-18 15:28:29 DEBUG loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2023-09-18 15:28:29 DEBUG loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2023-09-18 15:28:29 DEBUG registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>

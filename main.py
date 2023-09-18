@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from routes.blog import blog
 from routes.auth import auth
 import logging
+import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -18,17 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# logging structure
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s %(levelname)s %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-    filename="basic.log"
-)
 
 app.include_router(blog)
 app.include_router(auth)
 
-@app.get('/')
-def hello():
-    return {"message": "Hello"}
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", port=8000 , log_level='info' )

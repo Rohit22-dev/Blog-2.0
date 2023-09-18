@@ -1,6 +1,24 @@
-import logging
-import bcrypt
 from config.database import user_collection
+from decouple import config
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from logger import logger
+from datetime import datetime,timedelta
+
+JWT_SECRET = config("secret")
+JWT_ALGORITHM = config("algorithm")
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
 
 
 def individual_serial(todo) -> dict:
@@ -12,14 +30,16 @@ def list_serial(todos) -> list:
     return [individual_serial(todo) for todo in todos]
 
 
-def hash_password(password):
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed_password.decode('utf-8')
-
-
-def check_password(password, hashed_password):
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+# JWT token functions
+def create_access_token(data: dict, expires_delta: timedelta = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
 
 
 def check_user(data):
@@ -30,9 +50,8 @@ def check_user(data):
         existing_user['_id'] = str(existing_user['_id'])
         if not existing_user:
             raise Exception("User not found")
-        if not check_password(data.password, existing_user['password']):
+        if not verify_password(data.password, existing_user['password']):
             raise Exception("Invalid password")
         return existing_user
     except Exception as e:
-        logging.warning(str(e))
-
+        logger.warning(str(e))
